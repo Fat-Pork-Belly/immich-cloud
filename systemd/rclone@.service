@@ -1,0 +1,24 @@
+[Unit]
+Description=Rclone Mount (%I)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# 请按需替换为你的实际路径；系统启动时从该文件读取配置
+Environment=RCLONE_CONFIG=<你的 rclone.conf 绝对路径>
+Environment=MNT=<你的挂载点绝对路径>
+ExecStart=/usr/bin/rclone mount %I: ${MNT} \
+  --allow-other \
+  --dir-cache-time=12h \
+  --poll-interval=5m \
+  --vfs-cache-mode=full \
+  --vfs-cache-max-age=12h \
+  --log-file=/var/log/rclone-%I.log \
+  --log-level=INFO
+ExecStop=/bin/fusermount -uz ${MNT}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
