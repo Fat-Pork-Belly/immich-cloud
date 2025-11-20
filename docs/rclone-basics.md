@@ -42,6 +42,7 @@ rclone ls onedrive:
 
 ## 3.	使用 systemd 自动挂载 OneDrive（示例）
 
+下面以 OneDrive 为例，其他网盘只需要把 remote 名字改成对应的即可。
 注意：请先确认路径是否需要改成你自己的：
 	•	remote 名：onedrive
 	•	挂载点：/mnt/onedrive
@@ -86,7 +87,7 @@ EOF
 ```
 
 ## 3.3 载入并设置开机自动挂载
-
+此处假设 remote 名为 onedrive，挂载点为 /mnt/onedrive：
 ```bash
 REMOTE=onedrive
 
